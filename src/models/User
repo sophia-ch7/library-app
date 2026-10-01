@@ -53,4 +53,13 @@ export class User implements IUser {
   removeBook(bookId: string): void {
     this._borrowedBooks = this._borrowedBooks.filter((id) => id !== bookId);
   }
+
+  toJSON(): IUser {
+    return {
+      id: this._id,
+      name: this._name,
+      email: this._email,
+      borrowedBooks: [...this._borrowedBooks],
+    };
+  }
 }
