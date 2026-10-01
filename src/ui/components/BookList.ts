@@ -1,5 +1,7 @@
 import { Book } from "../../models/Book";
+import { paginate } from "../../utils/paginate";
 import { el } from "../dom";
+import { Pagination } from "./Pagination";
 
 export interface BookListHandlers {
   onBorrow: (book: Book) => void;
@@ -7,23 +9,57 @@ export interface BookListHandlers {
   onRemove: (book: Book) => void;
 }
 
+const PAGE_SIZE = 5;
+
 export class BookList {
   readonly element: HTMLElement;
   private list: HTMLElement;
+  private searchInput: HTMLInputElement;
+  private pagination: Pagination;
+  private books: Book[] = [];
+  private page = 1;
 
   constructor(private handlers: BookListHandlers) {
     this.element = el("div", "card shadow-sm mb-3");
     const body = el("div", "card-body");
     const heading = el("h4", "mb-3", "Список Книг");
+
+    this.searchInput = el("input", "form-control mb-3");
+    this.searchInput.placeholder = "Пошук за автором або назвою";
+    this.searchInput.addEventListener("input", () => {
+      this.page = 1;
+      this.draw();
+    });
+
     this.list = el("ul", "list-group list-group-flush");
-    body.append(heading, this.list);
+    this.pagination = new Pagination((page) => {
+      this.page = page;
+      this.draw();
+    });
+
+    body.append(heading, this.searchInput, this.list, this.pagination.element);
     this.element.appendChild(body);
   }
 
   render(books: Book[]): void {
+    this.books = books;
+    this.draw();
+  }
+
+  private draw(): void {
+    const query = this.searchInput.value.trim().toLowerCase();
+    const filtered = this.books.filter(
+      (book) =>
+        book.title.toLowerCase().includes(query) ||
+        book.author.toLowerCase().includes(query),
+    );
+    const result = paginate(filtered, this.page, PAGE_SIZE);
+    this.page = result.page;
+    this.pagination.render(result.page, result.totalPages);
+
     this.list.replaceChildren();
 
-    books.forEach((book) => {
+    result.items.forEach((book) => {
       const item = el(
         "li",
         "list-group-item d-flex justify-content-between align-items-center px-0",
