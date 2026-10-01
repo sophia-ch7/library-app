@@ -6,6 +6,8 @@ import { LibraryApp } from "./services/LibraryApp";
 import { BookForm } from "./ui/components/BookForm";
 import { el } from "./ui/dom";
 import { generateId } from "./utils/idGenerator";
+import { User } from "./models/User";
+import { UserForm } from "./ui/components/UserForm";
 
 const root = document.getElementById("app");
 
@@ -20,6 +22,11 @@ if (root) {
     console.log(app.books.getAll());
   });
 
-  container.append(title, bookForm.element);
+  const userForm = new UserForm((data) => {
+    app.addUser(new User(generateId(), data.name, data.email));
+    console.log(app.users.getAll());
+  });
+
+  container.append(title, bookForm.element, userForm.element);
   root.appendChild(container);
 }
