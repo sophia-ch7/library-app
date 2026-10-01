@@ -1,0 +1,56 @@
+import { IUser } from "./interfaces/IUser";
+
+export class User implements IUser {
+  private _id: string;
+  private _name: string;
+  private _email: string;
+  private _borrowedBooks: string[];
+
+  constructor(
+    id: string,
+    name: string,
+    email: string,
+    borrowedBooks: string[] = [],
+  ) {
+    this._id = id;
+    this._name = name;
+    this._email = email;
+    this._borrowedBooks = borrowedBooks;
+  }
+
+  get id(): string {
+    return this._id;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  set email(value: string) {
+    this._email = value;
+  }
+
+  get borrowedBooks(): string[] {
+    return [...this._borrowedBooks];
+  }
+
+  canBorrowMore(): boolean {
+    return this._borrowedBooks.length < 3;
+  }
+
+  addBook(bookId: string): void {
+    this._borrowedBooks.push(bookId);
+  }
+
+  removeBook(bookId: string): void {
+    this._borrowedBooks = this._borrowedBooks.filter((id) => id !== bookId);
+  }
+}
