@@ -1,6 +1,6 @@
-import { Validation } from "../../utils/validators";
-import { el } from "../dom";
-import { FormField } from "./FormField";
+import { Validation } from '../../utils/validators';
+import { el } from '../dom';
+import { FormField } from './FormField';
 
 export interface BookFormData {
   title: string;
@@ -10,17 +10,17 @@ export interface BookFormData {
 
 export class BookForm {
   readonly element: HTMLElement;
-  private title = new FormField("Назва книги", Validation.validateRequired);
-  private author = new FormField("Автор", Validation.validateRequired);
-  private year = new FormField("Рік видання", Validation.validateYear);
+  private title = new FormField('Назва книги', Validation.validateRequired);
+  private author = new FormField('Автор', Validation.validateRequired);
+  private year = new FormField('Рік видання', Validation.validateYear);
 
   constructor(private onSubmit: (data: BookFormData) => void) {
-    this.element = el("div", "card shadow-sm mb-3");
-    const body = el("div", "card-body");
-    const heading = el("h4", "mb-3", "Додати Книгу");
-    const button = el("button", "btn btn-success btn-sm", "Додати Книгу");
-    button.type = "button";
-    button.addEventListener("click", () => this.submit());
+    this.element = el('div', 'card shadow-sm mb-3');
+    const body = el('div', 'card-body');
+    const heading = el('h4', 'mb-3', 'Додати Книгу');
+    const button = el('button', 'btn btn-success btn-sm', 'Додати Книгу');
+    button.type = 'button';
+    button.addEventListener('click', () => this.submit());
 
     body.append(
       heading,
