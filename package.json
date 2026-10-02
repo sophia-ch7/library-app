@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -24,11 +27,18 @@
     "bootstrap": "^5.3.8"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/bootstrap": "^5.2.11",
     "css-loader": "^7.1.5",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
     "html-webpack-plugin": "^5.6.8",
+    "prettier": "^3.9.9",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.6.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.0",
     "webpack": "^5.111.1",
     "webpack-cli": "^7.2.3",
     "webpack-dev-server": "^6.0.0"

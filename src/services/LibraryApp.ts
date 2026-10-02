@@ -1,19 +1,19 @@
-import { Book } from "../models/Book";
-import { User } from "../models/User";
-import { IBook } from "../models/interfaces/IBook";
-import { IUser } from "../models/interfaces/IUser";
-import { Library } from "./Library";
-import { Storage } from "./Storage";
+import { Book } from '../models/Book';
+import { User } from '../models/User';
+import { IBook } from '../models/interfaces/IBook';
+import { IUser } from '../models/interfaces/IUser';
+import { Library } from './Library';
+import { Storage } from './Storage';
 
-const BOOKS_KEY = "books";
-const USERS_KEY = "users";
+const BOOKS_KEY = 'books';
+const USERS_KEY = 'users';
 
 export type BorrowResult =
-  | { status: "success"; book: Book; user: User }
-  | { status: "limit"; book: Book; user: User }
-  | { status: "book-not-found" }
-  | { status: "user-not-found" }
-  | { status: "already-borrowed"; book: Book };
+  | { status: 'success'; book: Book; user: User }
+  | { status: 'limit'; book: Book; user: User }
+  | { status: 'book-not-found' }
+  | { status: 'user-not-found' }
+  | { status: 'already-borrowed'; book: Book };
 
 export class LibraryApp {
   readonly books = new Library<Book>();
@@ -56,23 +56,23 @@ export class LibraryApp {
   borrowBook(bookId: string, userId: string): BorrowResult {
     const book = this.books.findById(bookId);
     if (!book) {
-      return { status: "book-not-found" };
+      return { status: 'book-not-found' };
     }
     const user = this.users.findById(userId);
     if (!user) {
-      return { status: "user-not-found" };
+      return { status: 'user-not-found' };
     }
     if (book.isBorrowed) {
-      return { status: "already-borrowed", book };
+      return { status: 'already-borrowed', book };
     }
     if (!user.canBorrowMore()) {
-      return { status: "limit", book, user };
+      return { status: 'limit', book, user };
     }
 
     book.borrow(user.id);
     user.addBook(book.id);
     this.save();
-    return { status: "success", book, user };
+    return { status: 'success', book, user };
   }
 
   returnBook(bookId: string): Book | undefined {

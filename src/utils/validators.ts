@@ -24,10 +24,10 @@ export namespace Validation {
       return "Це поле є обов'язковим";
     }
     if (!isDigitsOnly(value)) {
-      return "Рік має містити лише цифри";
+      return 'Рік має містити лише цифри';
     }
     if (!isYear(value)) {
-      return "Введіть коректний рік";
+      return 'Введіть коректний рік';
     }
     return null;
   }
@@ -37,7 +37,7 @@ export namespace Validation {
       return "Це поле є обов'язковим";
     }
     if (!isDigitsOnly(value)) {
-      return "ID має містити лише цифри";
+      return 'ID має містити лише цифри';
     }
     return null;
   }
@@ -47,7 +47,7 @@ export namespace Validation {
       return "Це поле є обов'язковим";
     }
     if (!EMAIL_REGEX.test(value)) {
-      return "Введіть коректний email";
+      return 'Введіть коректний email';
     }
     return null;
   }

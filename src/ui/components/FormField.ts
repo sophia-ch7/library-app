@@ -1,4 +1,4 @@
-import { el } from "../dom";
+import { el } from '../dom';
 
 export class FormField {
   readonly element: HTMLElement;
@@ -9,10 +9,10 @@ export class FormField {
     placeholder: string,
     private validate: (value: string) => string | null,
   ) {
-    this.element = el("div", "mb-2");
-    this.input = el("input", "form-control");
+    this.element = el('div', 'mb-2');
+    this.input = el('input', 'form-control');
     this.input.placeholder = placeholder;
-    this.error = el("div", "text-danger small");
+    this.error = el('div', 'text-danger small');
     this.element.append(this.input, this.error);
   }
 
@@ -22,12 +22,12 @@ export class FormField {
 
   check(): boolean {
     const message = this.validate(this.value);
-    this.error.textContent = message ?? "";
+    this.error.textContent = message ?? '';
     return message === null;
   }
 
   clear(): void {
-    this.input.value = "";
-    this.error.textContent = "";
+    this.input.value = '';
+    this.error.textContent = '';
   }
 }

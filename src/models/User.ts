@@ -1,4 +1,4 @@
-import { IUser } from "./interfaces/IUser";
+import { IUser } from './interfaces/IUser';
 
 export class User implements IUser {
   private _id: string;

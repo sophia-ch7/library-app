@@ -1,19 +1,19 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 
-import { Book } from "./models/Book";
-import { User } from "./models/User";
-import { LibraryApp } from "./services/LibraryApp";
-import { NotificationService } from "./services/NotificationService";
-import { BookForm } from "./ui/components/BookForm";
-import { BookList } from "./ui/components/BookList";
-import { UserForm } from "./ui/components/UserForm";
-import { UserList } from "./ui/components/UserList";
-import { el } from "./ui/dom";
-import { Validation } from "./utils/validators";
-import { generateId } from "./utils/idGenerator";
+import { Book } from './models/Book';
+import { User } from './models/User';
+import { LibraryApp } from './services/LibraryApp';
+import { NotificationService } from './services/NotificationService';
+import { BookForm } from './ui/components/BookForm';
+import { BookList } from './ui/components/BookList';
+import { UserForm } from './ui/components/UserForm';
+import { UserList } from './ui/components/UserList';
+import { el } from './ui/dom';
+import { Validation } from './utils/validators';
+import { generateId } from './utils/idGenerator';
 
-const root = document.getElementById("app");
+const root = document.getElementById('app');
 
 if (root) {
   const app = new LibraryApp();
@@ -37,7 +37,7 @@ if (root) {
   const bookList = new BookList({
     onBorrow: async (book) => {
       const userId = await notifications.prompt(
-        "Введіть ID користувача для позичення книги:",
+        'Введіть ID користувача для позичення книги:',
       );
       if (userId === null) {
         return;
@@ -50,24 +50,24 @@ if (root) {
 
       const result = app.borrowBook(book.id, userId);
       switch (result.status) {
-        case "success":
+        case 'success':
           notifications.show(
             `${result.book.title} by ${result.book.author} (${result.book.year}) has been borrowed by ${result.user.id} ${result.user.name} (${result.user.email}).`,
           );
           break;
-        case "limit":
+        case 'limit':
           notifications.show(
             `Користувач ${result.user.name} уже позичив 3 книги. Більше позичити не можна.`,
           );
           break;
-        case "user-not-found":
-          notifications.show("Користувача з таким ID не знайдено.");
+        case 'user-not-found':
+          notifications.show('Користувача з таким ID не знайдено.');
           break;
-        case "already-borrowed":
-          notifications.show("Ця книга вже позичена.");
+        case 'already-borrowed':
+          notifications.show('Ця книга вже позичена.');
           break;
         default:
-          notifications.show("Книгу не знайдено.");
+          notifications.show('Книгу не знайдено.');
       }
       refresh();
     },
@@ -76,7 +76,7 @@ if (root) {
       if (returned) {
         notifications.show(
           `${returned.title} by ${returned.author} (${returned.year}) has been returned.`,
-          "Закрити",
+          'Закрити',
         );
       }
       refresh();
@@ -92,8 +92,8 @@ if (root) {
     refresh();
   });
 
-  const container = el("div", "container py-4");
-  const title = el("h1", "text-center mb-4", "Система Управління Бібліотекою");
+  const container = el('div', 'container py-4');
+  const title = el('h1', 'text-center mb-4', 'Система Управління Бібліотекою');
 
   container.append(
     title,

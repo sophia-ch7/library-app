@@ -1,7 +1,7 @@
 export function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
-  className = "",
-  text = "",
+  className = '',
+  text = '',
 ): HTMLElementTagNameMap[K] {
   const element = document.createElement(tag);
   if (className) {
